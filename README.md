@@ -1,10 +1,14 @@
-# Лабораторна робота №5. Express HTTP server
+# Лабораторна робота №6. Express HTTP server 2
 
 Чушенко Кирило Олександрович, група 145.
 
-Встановіть залежності командою `npm ci` та запустіть сервер командою `npm start`.
+Встановіть залежності командою `npm ci`, потім виконайте `npm start`.
+Відкрийте http://localhost:3000/products у браузері. Сервер записує метод і URL кожного запиту в консоль.
 
-- http://localhost:3000/ — текстова відповідь сервера.
-- http://localhost:3000/products/Trek — два велосипеди бренду Trek у форматі JSON.
-- http://localhost:3000/products/Giant — один велосипед бренду Giant.
-- http://localhost:3000/products/Unknown — порожній масив.
+| GET-маршрут | Результат |
+|---|---|
+| /products | Усі велосипеди |
+| /products/Trek | Два велосипеди Trek |
+| /products/Unknown | Порожній масив |
+| /products/Brand%20C | 403, доступ до бренду обмежено |
+| /productswitherror | 400, повідомлення про помилку у форматі JSON |
