@@ -1,18 +1,19 @@
-const http = require('node:http');
+const express = require('express');
 
-const pages = new Map([
-  ['/', '<h1>Hello World!</h1><h2>Кирило Чушенко, група 145</h2>'],
-  ['/about', '<h1>About us</h1><p>Лабораторна робота №4 з Node.js.</p>'],
-  ['/contact', '<h1>Contact us</h1><p>Контакт для зв’язку — Google Classroom курсу Web-розробка.</p>']
-]);
+const app = express();
+const products = [
+  { id: 1, name: 'Trail Bike', brand: 'Trek' },
+  { id: 2, name: 'City Bike', brand: 'Giant' },
+  { id: 3, name: 'Road Bike', brand: 'Trek' }
+];
 
-const server = http.createServer((request, response) => {
-  const path = request.url.split('?')[0];
-  const page = pages.get(path);
-  response.writeHead(page ? 200 : 404, { 'Content-Type': 'text/html; charset=utf-8' });
-  response.end('<!doctype html><html lang="uk"><meta charset="utf-8"><title>Node.js — ЛР №4</title>' +
-    '<nav><a href="/">Головна</a> · <a href="/about">Про нас</a> · <a href="/contact">Контакти</a></nav>' +
-    (page || '<h1>404 — Сторінку не знайдено</h1>') + '</html>');
+app.get('/', (req, res) => {
+  res.type('text').send('Express HTTP server - Lab 5');
 });
 
-server.listen(3000, () => console.log('Server started at http://localhost:3000/'));
+app.get('/products/:brand', (req, res) => {
+  res.json(products.filter(product => product.brand === req.params.brand));
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log('Server listening on port ' + port));
